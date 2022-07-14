@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .progress-meter {
+            width: fit-content;
+            min-height: 5px;
+            background: black;
+            border: 1px solid black;
+            display: flex;
+            gap: 1px;
+        }
+
+        .meter-step {
+            background: #666;
+            border: 1px solid #333;
+            min-height: 5px;
+            min-width: 8px;
+            display: inline-block;
+            margin: 0;
+        }
+
+        .meter-step.completed {
+            background: #c93;
+            border: 1px solid #fc9;
+        }
+
+        .meter-start {
+            background: green;
+            border: 1px solid darkgreen;
+            min-height: 5px;
+            min-width: 5px;
+            display: inline-block;
+        }
+
+        .meter-finish {
+            background: black;
+            border: 1px solid #333;
+            min-height: 5px;
+            min-width: 5px;
+            display: inline-block;
+            background: repeating-conic-gradient(black 0% 25%, white 0% 50%) 50% / 3px 3px;
+        }
+    </style>
+</head>
+<body></body>
+<script>
+    const range = (a, b) => [...Array(b + 1).keys()].slice(a);
+    const div = (cls = "", cnt = "", attrs = "") => `<div class="${cls}" ${attrs}>${cnt}</div>`;
+
+    function meter(stepsTotal = 5, stepsCompleted = 2) {
+        return div("progress-meter",
+            div("meter-start") +
+            range(1, stepsCompleted).map(() => div("completed meter-step")).join('') +
+            range(1, stepsTotal - stepsCompleted).map(() => div("meter-step")).join('') +
+            div("meter-finish")
+        )
+    }
+
+    document.body.innerHTML = meter(7, 3);
+</script>
+</html>
