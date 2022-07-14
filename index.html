@@ -47,13 +47,13 @@
 <script>
     const range = (a, b) => [...Array(b + 1).keys()].slice(a);
     const div = (cls = "", cnt = "", attrs = "") => `<div class="${cls}" ${attrs}>${cnt}</div>`;
-
+    const repeat = (f, n) => range(1, n).map(f).join('');
     const meter = (steps = 5, completed = 2) => div("progress-meter",
-            div("meter-start") +
-            range(1, completed).map(() => div("completed meter-step")).join('') +
-            range(1, steps - completed).map(() => div("meter-step")).join('') +
-            div("meter-finish")
-        );
+        div("meter-start") +
+        repeat(() => div("completed meter-step"), completed) +
+        repeat(() => div("meter-step"), steps - completed) +
+        div("meter-finish")
+    );
 
     document.body.innerHTML = meter(7, 3);
 </script>
